@@ -10,6 +10,9 @@
 *.userosscache
 *.sln.docstates
 
+MSTest101.txt
+NUnit101.txt
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
