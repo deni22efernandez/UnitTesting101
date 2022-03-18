@@ -124,6 +124,29 @@ namespace UnitTest101
 			
 		}
 
+		//ASSERT TYPEOF OBJECT 
+		[Test]
+		public void GetTypeOfCustomer_InputLessThan100_OutputsBasicCustomerType()
+		{
+			//Arrange
+			customer.OrderTotal = 99;
+			//Act
+			var result = customer.GetTypeOfCustomer();
+			//Assert
+			Assert.That(result, Is.TypeOf<BasicCustomer>());
+		}
+
+		[Test]
+		public void GetTypeOfCustomer_InputMoreThan100_OutputsPlatinumCustomerType()
+		{
+			//Arrange
+			customer.OrderTotal = 999;
+			//Act
+			var result = customer.GetTypeOfCustomer();
+			//Assert
+			Assert.That(result, Is.TypeOf<PlatinumCustomer>());
+		}
+
 
 	}
 }
