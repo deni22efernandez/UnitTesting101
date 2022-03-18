@@ -83,5 +83,47 @@ namespace UnitTest101
 			//Assert
 			Assert.That(result, Is.InRange(15, 25));
 		}
+
+		//ASSERT MULTIPLE
+		[Test]
+		public void GreetCustomer_InputTwoStrings_OutputString_MultipleAsserts()
+		{
+			string greet = customer.GreetCustomer("Denisse", "Fernandez");
+
+			//Assert
+			Assert.Multiple(()=> 
+			{
+				Assert.That(greet, Is.EqualTo("Hello Denisse Fernandez"));
+				Assert.AreEqual("Hello Denisse Fernandez", greet);
+				Assert.That(customer.Greeting, Does.Contain("Hello"));
+				Assert.That(greet, Does.Contain("hello").IgnoreCase);
+				Assert.That(greet, Does.StartWith("Hello"));
+				Assert.That(greet, Does.EndWith("Fernandez"));
+				Assert.That(greet, Does.Match("Hello [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]"));
+			});
+			
+		}
+
+		//EXCEPTIONS
+		[Test]
+		public void GreetCustomer_InputNameIsNullOrEmpty_OutputsException()
+		{
+			//Arrange
+			var excep = Assert.Throws<ArgumentException>(() => customer.GreetCustomer("", "Fernandez"));
+
+			//Assert comparando mensaje de la excepcion
+			Assert.AreEqual("Name is required!", excep.Message);
+			Assert.That(excep.Message, Is.EqualTo("Name is required!"));
+
+			Assert.That(() => customer.GreetCustomer("", "Fernandez"), 
+				Throws.ArgumentException.With.Message.EqualTo("Name is required!"));
+
+			//Assert sin comparacion de mensaje, solo checkeo el tipo d la exception
+			Assert.Throws<ArgumentException>(()=>customer.GreetCustomer("", "Fernandez"));
+			Assert.That(() => customer.GreetCustomer("", "Fernandez"), Throws.ArgumentException);
+			
+		}
+
+
 	}
 }

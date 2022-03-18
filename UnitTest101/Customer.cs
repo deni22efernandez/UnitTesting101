@@ -10,6 +10,9 @@ namespace UnitTest101
 		public int Discount { get; set; } = 15;
 		public string GreetCustomer(string Name, string Lastname)
 		{
+			if (String.IsNullOrEmpty(Name))//for assert.exception
+				throw new ArgumentException("Name is required!"); 
+
 			Greeting = $"Hello {Name} {Lastname}";
 			Discount = 20;
 			return Greeting;
