@@ -66,5 +66,38 @@ namespace UnitTest101
 			//Assert
 			Assert.IsFalse(result);
 		}
+
+		[Test]
+		
+		public void MessageWithReturnString_InputString_OutputsString()
+		{
+			//test a method in mock withdout implementing it
+			//Arrange
+			var logBookMock = new Mock<ILogger>();
+			//MessageWithReturnString must return any string
+			logBookMock.Setup(x => x.MessageWithReturnString(It.IsAny<string>())).Returns((string str)=>str);
+			string desiredOutput = "any string";
+			//Act
+			var result = logBookMock.Object.MessageWithReturnString("any string");
+			//Assert
+			Assert.That(result, Is.TypeOf<string>());
+			Assert.That(result, Is.EqualTo(desiredOutput));
+		}
+
+		[Test]
+
+		public void MessageWithReturnString_InputString_OutputsStringII()
+		{
+			//igual al anterior pero sin act
+			//Arrange
+			var logBookMock = new Mock<ILogger>();
+			//MessageWithReturnString must return any string
+			logBookMock.Setup(x => x.MessageWithReturnString(It.IsAny<string>())).Returns((string str) => str);
+			string desiredOutput = "any string";			
+			
+			//Assert
+			Assert.That(logBookMock.Object.MessageWithReturnString("any string"), Is.TypeOf<string>());
+			Assert.That(logBookMock.Object.MessageWithReturnString("any string"), Is.EqualTo(desiredOutput));
+		}
 	}
 }

@@ -9,6 +9,7 @@ namespace UnitTest101
 		void Message(string mssg);
 		bool LogToDb(string mssg);
 		bool LogBalanceAfterWithDrawal(int balanceAfterWithdrawal);
+		string MessageWithReturnString(string str);
 	}
 	public class LogBook : ILogger
 	{
@@ -32,6 +33,12 @@ namespace UnitTest101
 		public void Message(string mssg)
 		{
 			Console.WriteLine(mssg);
+		}
+
+		public string MessageWithReturnString(string str)
+		{
+			Console.WriteLine(str);
+			return str;
 		}
 	}
 }
