@@ -7,12 +7,15 @@ namespace UnitTest101
 	public class BankAccount
 	{
 		public double Balance { get; set; }
-		public BankAccount()
+		private ILogger _logBook { get; set; }
+		public BankAccount(ILogger logBook)
 		{
 			Balance = 0;
+			_logBook = logBook;
 		}
 		public bool Deposit(double amount)
 		{
+			_logBook.Message("Begin deposit transaction");
 			Balance += amount;
 			return true;
 		}
@@ -20,11 +23,14 @@ namespace UnitTest101
 		{
 			if (Balance >= amount)
 			{
+				_logBook.LogToDb("Withdrawal amount:" + amount.ToString());
 				Balance -= amount;
-				return true;
-			}				
+				return _logBook.LogBalanceAfterWithDrawal((int)Balance);
+				
+			}
 			else
-				return false;
+				return _logBook.LogBalanceAfterWithDrawal((int)Balance - (int)amount);
+				
 		}
 		public double GetBalance()
 		{
