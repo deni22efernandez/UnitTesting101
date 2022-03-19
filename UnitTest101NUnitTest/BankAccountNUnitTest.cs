@@ -113,5 +113,18 @@ namespace UnitTest101
 			Assert.That(result, Is.EqualTo(desiredOutput));
 
 		}
+		[Test]
+		public void LogWithReference_InputCustomerReference_OutputsTrue()
+		{
+			//Arrange
+			var LogBookMoq = new Mock<ILogger>();
+			var reference = new Customer();
+			var reference2 = new Customer();
+			//el test pasa siempre q el metodo reciba una variable llamada reference
+			LogBookMoq.Setup(x => x.LogWithReference(ref reference)).Returns(true);
+			Assert.IsTrue(LogBookMoq.Object.LogWithReference(ref reference));
+			//es false x el nombre de la variable
+			Assert.IsFalse(LogBookMoq.Object.LogWithReference(ref reference2));
+		}
 	}
 }

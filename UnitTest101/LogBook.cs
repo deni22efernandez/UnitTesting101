@@ -11,6 +11,7 @@ namespace UnitTest101
 		bool LogBalanceAfterWithDrawal(int balanceAfterWithdrawal);
 		string MessageWithReturnString(string str);
 		bool LogWithOutputResult(string str, out string anotherString);
+		bool LogWithReference(ref Customer customer);
 	}
 	public class LogBook : ILogger
 	{
@@ -34,6 +35,11 @@ namespace UnitTest101
 		public bool LogWithOutputResult(string str, out string anotherString)
 		{
 		    anotherString = "Logging " + str;
+			return true;
+		}
+
+		public bool LogWithReference(ref Customer customer)
+		{
 			return true;
 		}
 
