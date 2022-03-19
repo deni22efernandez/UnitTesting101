@@ -6,6 +6,8 @@ namespace UnitTest101
 {
 	public interface ILogger
 	{
+		int LogSeverity { get; set; }
+		string LogType { get; set; }
 		void Message(string mssg);
 		bool LogToDb(string mssg);
 		bool LogBalanceAfterWithDrawal(int balanceAfterWithdrawal);
@@ -15,6 +17,9 @@ namespace UnitTest101
 	}
 	public class LogBook : ILogger
 	{
+		public int LogSeverity { get; set; }
+		public string LogType { get; set; }
+
 		public bool LogBalanceAfterWithDrawal(int balanceAfterWithdrawal)
 		{
 			if (balanceAfterWithdrawal >= 0)

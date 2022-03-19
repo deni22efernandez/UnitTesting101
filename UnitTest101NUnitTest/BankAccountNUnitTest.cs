@@ -126,5 +126,23 @@ namespace UnitTest101
 			//es false x el nombre de la variable
 			Assert.IsFalse(LogBookMoq.Object.LogWithReference(ref reference2));
 		}
+		[Test]
+		public void LogBookProperties_SetAndGetSeverityLogType()
+		{
+			//Arrange
+			var LogBookMoq = new Mock<ILogger>();
+			
+			LogBookMoq.Setup(x => x.LogSeverity).Returns(10);
+			LogBookMoq.Setup(x => x.LogType).Returns("warning");
+			//sobreescribo el setup, debo hacerlo para todas las prop sino c setean en null
+			LogBookMoq.SetupAllProperties();
+			LogBookMoq.Object.LogSeverity = 100;
+			LogBookMoq.Object.LogType = "w";
+
+			//Assert
+			Assert.That(LogBookMoq.Object.LogSeverity, Is.EqualTo(100));
+			Assert.That(LogBookMoq.Object.LogType, Is.EqualTo("w"));
+		}
+		
 	}
 }
