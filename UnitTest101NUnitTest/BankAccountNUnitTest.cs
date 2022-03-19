@@ -106,12 +106,10 @@ namespace UnitTest101
 			var LogBookMoq = new Mock<ILogger>();
 			string desiredOutput = "Logging something";
 			LogBookMoq.Setup(x => x.LogWithOutputResult(It.IsAny<string>(), out desiredOutput)).Returns(true);
-
-			//Act
 			var result = "";
 
 			//Assert
-			Assert.IsTrue(LogBookMoq.Object.LogWithOutputResult("something", out result));
+			Assert.IsTrue(LogBookMoq.Object.LogWithOutputResult("something", out result));			
 			Assert.That(result, Is.EqualTo(desiredOutput));
 
 		}
