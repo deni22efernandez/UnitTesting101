@@ -99,5 +99,21 @@ namespace UnitTest101
 			Assert.That(logBookMock.Object.MessageWithReturnString("any string"), Is.TypeOf<string>());
 			Assert.That(logBookMock.Object.MessageWithReturnString("any string"), Is.EqualTo(desiredOutput));
 		}
+		[Test]
+		public void LogWithOutputResult_InputString_OutputsTrueAndString()
+		{
+			//Arrange
+			var LogBookMoq = new Mock<ILogger>();
+			string desiredOutput = "Logging something";
+			LogBookMoq.Setup(x => x.LogWithOutputResult(It.IsAny<string>(), out desiredOutput)).Returns(true);
+
+			//Act
+			var result = "";
+
+			//Assert
+			Assert.IsTrue(LogBookMoq.Object.LogWithOutputResult("something", out result));
+			Assert.That(result, Is.EqualTo(desiredOutput));
+
+		}
 	}
 }
