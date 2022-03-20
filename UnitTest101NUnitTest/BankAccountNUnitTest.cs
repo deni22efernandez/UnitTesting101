@@ -143,6 +143,25 @@ namespace UnitTest101
 			Assert.That(LogBookMoq.Object.LogSeverity, Is.EqualTo(100));
 			Assert.That(LogBookMoq.Object.LogType, Is.EqualTo("w"));
 		}
-		
+		[Test]
+		public void Deposit_VerifyMoqsProperties()
+		{
+			var logBookMoq = new Mock<ILogger>();
+			var account = new BankAccount(logBookMoq.Object);
+			account.Deposit(111);
+
+			//Verificar si _logBook.Message fue invocado en Deposit() al menos una vez 
+			logBookMoq.Verify(x => x.Message(It.IsAny<string>()), Times.AtLeastOnce());
+
+			//Verificar si _logBook.Message fue invocado en Deposit() exactamente una vez 
+			logBookMoq.Verify(x => x.Message(It.IsAny<string>()), Times.Exactly(1));
+
+			//Verificar si _logBook.Severity fue seteado en Deposit() fue invocado una vez 
+			logBookMoq.VerifySet(x => x.LogSeverity = 1, Times.Once);
+
+			//Verificar si _logBook.Severity Get en Deposit()fue llamado una vez
+			logBookMoq.VerifyGet(x => x.LogSeverity, Times.Once);
+		}
+
 	}
 }
