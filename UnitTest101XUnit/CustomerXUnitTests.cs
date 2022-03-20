@@ -82,14 +82,13 @@ namespace UnitTest101
 			Assert.InRange(result, 15, 25);
 		}
 
-		//ASSERT MULTIPLE
+		
 		[Fact]
 		public void GreetCustomer_InputTwoStrings_OutputString_MultipleAsserts()
 		{
 			string greet = customer.GreetCustomer("Denisse", "Fernandez");
 
-			//Assert
-			
+			//Assert			
 			Assert.Equal("Hello Denisse Fernandez", greet);
 			Assert.Contains("Hello", customer.Greeting);
 			Assert.StartsWith("Hello", greet);
