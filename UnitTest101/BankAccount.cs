@@ -16,8 +16,6 @@ namespace UnitTest101
 		public bool Deposit(double amount)
 		{
 			_logBook.Message("Begin deposit transaction");
-			_logBook.LogSeverity = 1;
-			var temp = _logBook.LogSeverity;
 			Balance += amount;
 			return true;
 		}
