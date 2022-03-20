@@ -1,56 +1,52 @@
 ﻿
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Xunit;
 
-//namespace UnitTest101
-//{
-//	[TestFixture]
-//	public class FibonacciXUnitTests
-//	{
-//		private Fibonacci fibonacci;
+namespace UnitTest101
+{
+	public class FibonacciXUnitTests
+	{
+		private Fibonacci fibonacci;
+		public FibonacciXUnitTests()
+		{
+			fibonacci = new Fibonacci();
+		}
 
-//		[SetUp]
-//		public void SetUp()
-//		{
-//			fibonacci = new Fibonacci();
-//		}
+		[Fact]
+		public void GetFiboSeries_InputRange1_MultipleAsserts()
+		{
+			//Arrange
+			List<int> expectedResults = new List<int>() { 0 };
+			fibonacci.Range = 1;
+			//Act
+			var result = fibonacci.GetFiboSeries();
+			//Assert
+			Assert.NotEmpty(result);
+			Assert.Equal(result.OrderBy(x => x), result);
+			Assert.Equal(expectedResults, result);
+			//iagual al de arriba
+			Assert.True(result.SequenceEqual(expectedResults));//comparar dos colecciones
+		}
 
-//		[Test]
-//		public void GetFiboSeries_InputRange1_MultipleAsserts()
-//		{
-//			//Arrange
-//			List<int> expectedResults = new List<int>() { 0 };
-//			fibonacci.Range = 1;
-//			//Act
-//			var result = fibonacci.GetFiboSeries();
-//			//Assert
-//			Assert.Multiple(() =>
-//			{
-//				Assert.That(result, Is.Not.Empty);
-//				Assert.That(result, Is.Ordered);
-//				Assert.That(result, Is.EquivalentTo(expectedResults));
-//			});
-//		}
+		[Fact]
+		public void GetFiboSeries_InputRange6_MultipleAsserts()
+		{
+			//Arrange
+			List<int> expectedResults = new List<int>() { 0, 1, 1, 2, 3, 5 };
+			fibonacci.Range = 6;
+			//Act
+			var result = fibonacci.GetFiboSeries();
+			//Assert
 
-//		[Test]
-//		public void GetFiboSeries_InputRange6_MultipleAsserts()
-//		{
-//			//Arrange
-//			List<int> expectedResults = new List<int>() { 0,1,1,2,3,5 };
-//			fibonacci.Range = 6;
-//			//Act
-//			var result = fibonacci.GetFiboSeries();
-//			//Assert
-//			Assert.Multiple(() =>
-//			{
-//				Assert.That(result, Does.Contain(3));
-//				//Assert.That(result.Count.Equals(6));
-//				Assert.That(result.Count, Is.EqualTo(6));
-//				//Assert.That(result, Does.Not.Contains(4));
-//				Assert.That(result, Has.No.Member(4));
-//				Assert.That(result, Is.EquivalentTo(expectedResults));
-//			});
-//		}
-//	}
-//}
+			Assert.Contains(3,result);
+			//Assert.That(result.Count.Equals(6));
+			Assert.Equal(6, result.Count);
+			//Assert.That(result, Does.Not.Contains(4));
+			Assert.DoesNotContain(4, result);
+			Assert.True(result.SequenceEqual(expectedResults));
+		}
+	}
+}
