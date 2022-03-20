@@ -56,7 +56,6 @@ namespace UnitTest101NUnitTest
 			bool result = calc.IsOddNumber(a);//parametro del test case
 			//Assert
 			Assert.False(result);
-			//Assert.That(result, Is.EqualTo(false));
 		}
 
 		[Theory]
@@ -68,8 +67,7 @@ namespace UnitTest101NUnitTest
 			//Calculation calc = new Calculation();
 			//Act
 			var result = calc.IsOddNumber(a);
-			Assert.Equal(result, expected);
-											 
+			Assert.Equal(result, expected);											 
 		}
 
 		[Theory]
@@ -82,7 +80,6 @@ namespace UnitTest101NUnitTest
 			double result = calc.AddDoubleNumbers(a, b);
 			//Assert
 			Assert.Equal(3.2, result, 0);
-			//Assert.That(result, Is.EqualTo(3.2));
 		}
 
 		[Fact]
@@ -110,7 +107,6 @@ namespace UnitTest101NUnitTest
 
 			//la colleccion no contiene el numero 2
 			Assert.DoesNotContain(2, result);
-
 
 		}
 

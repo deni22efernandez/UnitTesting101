@@ -1,116 +1,111 @@
 ﻿
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Xunit;
 
-//namespace UnitTest101
-//{
-//	[TestFixture]
-//	public class GradingCalculatorXUnitTests
-//	{
-//		private GradingCalculator grading;
+namespace UnitTest101
+{
+	public class GradingCalculatorXUnitTests
+	{
+		private GradingCalculator grading;
 
-//		[SetUp]
-//		public void Setup()
-//		{
-//			grading = new GradingCalculator();
-//		}
-//		[Test]
-//		public void GetGrade_InputScore95Attendance90_OutputsA()
-//		{
-//			//Arrange
-//			grading.Score = 95;
-//			grading.AttendancePercentage = 90;
-//			//Act
-//			var result = grading.GetGrade();
-//			//Assert
-//			Assert.That(result, Is.EqualTo("A"));
-//			Assert.AreEqual("A", result);
-//		}
-//		[Test]
-//		public void GetGrade_InputScore85Attendance90_OutputsB()
-//		{
-//			//Arrange
-//			grading.Score = 85;
-//			grading.AttendancePercentage = 90;
-//			//Act
-//			var result = grading.GetGrade();
-//			//Assert
-//			Assert.That(result, Is.EqualTo("B"));
-//			Assert.AreEqual("B", result);
-//		}
-//		[Test]
-//		public void GetGrade_InputScore65Attendance90_OutputsC()
-//		{
-//			//Arrange
-//			grading.Score = 65;
-//			grading.AttendancePercentage = 90;
-//			//Act
-//			var result = grading.GetGrade();
-//			//Assert
-//			Assert.That(result, Is.EqualTo("C"));
-//			Assert.AreEqual("C", result);
-//		}
-//		[Test]
-//		public void GetGrade_InputScore95Attendance65_OutputsB()
-//		{
-//			//Arrange
-//			grading.Score = 95;
-//			grading.AttendancePercentage = 65;
-//			//Act
-//			var result = grading.GetGrade();
-//			//Assert
-//			Assert.That(result, Is.EqualTo("B"));
-//			Assert.AreEqual("B", result);
-//		}
-//		[Test]
-//		[TestCase(95,55,ExpectedResult ="F")]
-//		[TestCase(65, 55, ExpectedResult = "F")]
-//		[TestCase(50, 90, ExpectedResult = "F")]
-//		public string GetGrade_InputFromTestCase1_OutputsF(int a, int b)
-//		{
-//			//Arrange
-//			grading.Score = a;
-//			grading.AttendancePercentage = b;
-//			//Act
-//			return grading.GetGrade();
-//			//Assert
-//			//Assert.That(result, Is.EqualTo("B"));
-//			//Assert.AreEqual("B", result);
-//		}
-		
-//		[Test]
-//		[TestCase(95, 55)]
-//		[TestCase(65, 55)]
-//		[TestCase(50, 90)]
-//		public void GetGrade_InputFromTestCase2_OutputsF(int a, int b)
-//		{
-//			//Arrange
-//			grading.Score = a;
-//			grading.AttendancePercentage = b;
-//			//Act
-//			var result = grading.GetGrade();
-//			//Assert
-//			Assert.That(result, Is.EqualTo("F"));
-//			Assert.AreEqual("F", result);
-//		}
+		public GradingCalculatorXUnitTests()
+		{
+			grading = new GradingCalculator();
+		}
 
-//		[Test]
-//		[TestCase(95, 90,ExpectedResult ="A")]
-//		[TestCase(85, 90, ExpectedResult = "B")]
-//		[TestCase(65, 90, ExpectedResult = "C")]
-//		[TestCase(95, 65, ExpectedResult = "B")]
-//		[TestCase(95, 55, ExpectedResult = "F")]
-//		[TestCase(65, 55, ExpectedResult = "F")]
-//		[TestCase(50, 90, ExpectedResult = "F")]
-//		public string GetGrade_InputMultiple_Outputs(int a, int b)
-//		{
-//			//Arrange
-//			grading.Score = a;
-//			grading.AttendancePercentage = b;
-//			//Act
-//			return grading.GetGrade();		
+		[Fact]
+		public void GetGrade_InputScore95Attendance90_OutputsA()
+		{
+			//Arrange
+			grading.Score = 95;
+			grading.AttendancePercentage = 90;
+			//Act
+			var result = grading.GetGrade();
+			//Assert
+			Assert.Equal("A", result);
+		}
+		[Fact]
+		public void GetGrade_InputScore85Attendance90_OutputsB()
+		{
+			//Arrange
+			grading.Score = 85;
+			grading.AttendancePercentage = 90;
+			//Act
+			var result = grading.GetGrade();
+			//Assert
+			Assert.Equal("B", result);
+		}
+		[Fact]
+		public void GetGrade_InputScore65Attendance90_OutputsC()
+		{
+			//Arrange
+			grading.Score = 65;
+			grading.AttendancePercentage = 90;
+			//Act
+			var result = grading.GetGrade();
+			//Assert
+			Assert.Equal("C", result);
+		}
+		[Fact]
+		public void GetGrade_InputScore95Attendance65_OutputsB()
+		{
+			//Arrange
+			grading.Score = 95;
+			grading.AttendancePercentage = 65;
+			//Act
+			var result = grading.GetGrade();
+			//Assert
+			Assert.Equal("B", result);
+		}
+		[Theory]
+		[InlineData(95, 55, "F")]
+		[InlineData(65, 55, "F")]
+		[InlineData(50, 90, "F")]
+		public void GetGrade_InputFromTestCase1_OutputsF(int a, int b, string c)
+		{
+			//Arrange
+			grading.Score = a;
+			grading.AttendancePercentage = b;
+			//Act
+			var result = grading.GetGrade();
+			//Assert			
+			Assert.Equal(c, result);
+		}
 
-//		}
-//	}
-//}
+		[Theory]
+		[InlineData(95, 55)]
+		[InlineData(65, 55)]
+		[InlineData(50, 90)]
+		public void GetGrade_InputFromTestCase2_OutputsF(int a, int b)
+		{
+			//Arrange
+			grading.Score = a;
+			grading.AttendancePercentage = b;
+			//Act
+			var result = grading.GetGrade();
+			//Assert
+			Assert.Equal("F", result);
+		}
+
+		[Theory]
+		[InlineData(95, 90, "A")]
+		[InlineData(85, 90, "B")]
+		[InlineData(65, 90, "C")]
+		[InlineData(95, 65, "B")]
+		[InlineData(95, 55, "F")]
+		[InlineData(65, 55, "F")]
+		[InlineData(50, 90, "F")]
+		public void GetGrade_InputMultiple_Outputs(int a, int b, string c)
+		{
+			//Arrange
+			grading.Score = a;
+			grading.AttendancePercentage = b;
+			//Act
+			var result = grading.GetGrade();
+			//Assert
+			Assert.Equal(c, result);
+		}
+	}
+}
