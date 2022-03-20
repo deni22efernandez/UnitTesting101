@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnitTest101;
 using Xunit;
 
@@ -71,60 +72,47 @@ namespace UnitTest101NUnitTest
 											 
 		}
 
-		//[Theory]
-		//[InlineData(1.1, 2.1)]//returns 3.2
-		//[InlineData(1.1, 2.5)]// 3.6
-		//[InlineData(1.1, 2.9)]// 4
-		//public void AddDoubleNumbers_InputTwoDoubleValues_ReturnsDoubleValue(double a, double b)
-		//{
-		//	//Arrange
-		//	//Calculation calc = new Calculation();
-		//	//Act
-		//	double result = calc.AddDoubleNumbers(a, b);
-		//	//Assert
-		//	Assert.Equal(3.2, result,.8);
-		//	//Assert.That(result, Is.EqualTo(3.2));
-		//}
+		[Theory]
+		[InlineData(1.1, 2.1)]//returns 3.2		
+		public void AddDoubleNumbers_InputTwoDoubleValues_ReturnsDoubleValue(double a, double b)
+		{
+			//Arrange
+			//Calculation calc = new Calculation();
+			//Act
+			double result = calc.AddDoubleNumbers(a, b);
+			//Assert
+			Assert.Equal(3.2, result, 0);
+			//Assert.That(result, Is.EqualTo(3.2));
+		}
 
-		//[Fact]
-		//public void GetOddNumbers_InputMinMaxRange_OutputsOddsNumbrsBetweenRange()
-		//{
-		//	//Arrange
-		//	List<int> expectedListOfOddNmbrs = new List<int>() { 1, 3, 5, 7, 9 };//inicializo la lista esperada
-		//	//Act
-		//	var result = calc.GetOddNumbers(0, 10);
-		//	//Assert
-		//	Assert.That(result, Is.EquivalentTo(expectedListOfOddNmbrs));
+		[Fact]
+		public void GetOddNumbers_InputMinMaxRange_OutputsOddsNumbrsBetweenRange()
+		{
+			//Arrange
+			List<int> expectedListOfOddNmbrs = new List<int>() { 1, 3, 5, 7, 9 };//inicializo la lista esperada
 
-		//	//igual a usar isEquivalentTo el orden de las variables cambia
-		//	//Assert.AreEqual(expectedListOfOddNmbrs, result); 
+			//Act
+			var result = calc.GetOddNumbers(0, 10);
+			//Assert
+			Assert.Equal(expectedListOfOddNmbrs, result);
 
-		//	//la coleccion contiene un valor x
-		//	//Assert.Contains(7, result);
+			//la coleccion contiene un valor x (igual al assert anterior)
+			Assert.Contains(7, result);
 
-		//	//la coleccion contiene un valor x (igual al assert anterior)
-		//	Assert.That(result, Does.Contain(7));
+			//la coleccion esta ordenada d forma ascendente
+			Assert.Equal(result.OrderBy(x=>x), result);
 
-		//	//todos los valores de la colleccion son unicos
-		//	Assert.That(result, Is.Unique);
+			//la colleccion no esta vacia
+			Assert.NotEmpty(result);
 
-		//	//la coleccion esta ordenada d forma ascendente
-		//	Assert.That(result, Is.Ordered);
+			//la coleccion tiene 5 elementos
+			Assert.Equal(5,result.Count);
 
-		//	//la coleccion esta ordenada d forma descendiente
-		//	//Assert.That(result, Is.Ordered.Descending);
+			//la colleccion no contiene el numero 2
+			Assert.DoesNotContain(2, result);
 
-		//	//la colleccion no esta vacia
-		//	Assert.That(result, Is.Not.Empty);
 
-		//	//la coleccion tiene 5 elementos
-		//	Assert.That(result.Count, Is.EqualTo(5));
-
-		//	//la colleccion no contiene el numero 2
-		//	Assert.That(result, Has.No.Member(2));
-			
-			
-		//}
+		}
 
 	}
 }
