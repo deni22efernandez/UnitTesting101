@@ -1,152 +1,142 @@
 ﻿
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
-//using System.Text.RegularExpressions;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Text.RegularExpressions;
+using Xunit;
 
-//namespace UnitTest101
-//{
-//	[TestFixture]
-//	public class CustomerXUnitTests
-//	{
-//		private Customer customer;
+namespace UnitTest101
+{
+	public class CustomerXUnitTests
+	{
+		private Customer customer;
 
-//		[SetUp]
-//		public void Setup()//constructor
-//		{
-//			customer = new Customer();
-//		}
+		public CustomerXUnitTests()
+		{
+			customer = new Customer();
+		}
 
-//		[Test]
-//		public void GreetCustomer_InputTwoStrings_OutputString()
-//		{
-//			//Arrange
-//			//Customer customer = new Customer();
-//			//Act
-//			string greet = customer.GreetCustomer("Denisse", "Fernandez");
-//			//Assert
-//			Assert.That(greet, Is.EqualTo("Hello Denisse Fernandez"));
-//		}
+		[Fact]
+		public void GreetCustomer_InputTwoStrings_OutputString()
+		{
+			//Arrange
+			//Customer customer = new Customer();
+			//Act
+			string greet = customer.GreetCustomer("Denisse", "Fernandez");
+			//Assert
+			Assert.Equal("Hello Denisse Fernandez", greet);
+		}
 
-//		[Test]
-//		[TestCase("Denisse", "Fernandez", ExpectedResult = "Hello Denisse Fernandez")]
-//		public string GreetCustomer_InputTwoStrings_OutputString1(string a, string b)
-//		{
-//			//Arrange
-//			//Customer customer = new Customer();
-//			//Act
-//			return customer.GreetCustomer(a,b);
-//		}
-//		[Test]
-//		public void GreetCustomer_InputTwoStrings_OutputString_RandomValidations()
-//		{
-//			//Arrange
-//			//Customer customer = new Customer();
-//			//Act
-//			string greet = customer.GreetCustomer("Denisse", "Fernandez");
-//			//Assert
-//			//Assert.That(greet, Is.EqualTo("Hello Denisse Fernandez"));
-//			Assert.AreEqual("Hello Denisse Fernandez", greet);
+		[Theory]
+		[InlineData("Denisse", "Fernandez", "Hello Denisse Fernandez")]
+		public void GreetCustomer_InputTwoStrings_OutputString1(string a, string b, string expected)
+		{
+			//Arrange
+			//Customer customer = new Customer();
+			//Act
+			var result = customer.GreetCustomer(a, b);
+			//Assert
+			Assert.Equal(expected, result);
+		}
+		[Fact]
+		public void GreetCustomer_InputTwoStrings_OutputString_RandomValidations()
+		{
+			//Arrange
+			//Customer customer = new Customer();
+			//Act
+			string greet = customer.GreetCustomer("Denisse", "Fernandez");
+			//Assert
+			Assert.Equal("Hello Denisse Fernandez", greet);
 
-//			//Greet contiene Hello
-//			Assert.That(customer.Greeting, Does.Contain("Hello"));
-//			//Contain es case sensitive, para desactivarlo
-//			Assert.That(greet, Does.Contain("hello").IgnoreCase);
+			//Greet contiene Hello
+			Assert.Contains("Hello", customer.Greeting);
 
-//			//Greet comienza con hello
-//			Assert.That(greet, Does.StartWith("Hello"));
+			//Greet comienza con hello
+			Assert.StartsWith("Hello", greet);
 
-//			//Greet termina con Fernandez
-//			Assert.That(greet, Does.EndWith("Fernandez"));
+			//Greet termina con Fernandez
+			Assert.EndsWith("Fernandez", greet);
 
-//			//Regex
-//			Assert.That(greet, Does.Match("Hello [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]"));
-//		}
+			//Regex
+			Assert.Matches("Hello [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]", greet);
+		}
 
-//		[Test]
-//		public void GreetCustomer_NotCallMethod_OutputNull()
-//		{
-//			//Arrange
-//			//Customer customer = new Customer();
-//			//Act
+		[Fact]
+		public void GreetCustomer_NotCallMethod_OutputNull()
+		{
+			//Arrange
+			//Customer customer = new Customer();
+			//Act
 
-//			//Assert
-//			Assert.IsNull(customer.Greeting);
-//		}
-//		[Test]
-//		public void GreetCustomer_CheckDiscount_OutputBetweenGivenRange()
-//		{
-//			//Arrange
+			//Assert
+			Assert.Null(customer.Greeting);
+		}
+		[Fact]
+		public void GreetCustomer_CheckDiscount_OutputBetweenGivenRange()
+		{
+			//Arrange
 
-//			//Act
-//			var result = customer.Discount;
-//			//Assert
-//			Assert.That(result, Is.InRange(15, 25));
-//		}
+			//Act
+			var result = customer.Discount;
+			//Assert
+			Assert.InRange(result, 15, 25);
+		}
 
-//		//ASSERT MULTIPLE
-//		[Test]
-//		public void GreetCustomer_InputTwoStrings_OutputString_MultipleAsserts()
-//		{
-//			string greet = customer.GreetCustomer("Denisse", "Fernandez");
+		//ASSERT MULTIPLE
+		[Fact]
+		public void GreetCustomer_InputTwoStrings_OutputString_MultipleAsserts()
+		{
+			string greet = customer.GreetCustomer("Denisse", "Fernandez");
 
-//			//Assert
-//			Assert.Multiple(()=> 
-//			{
-//				Assert.That(greet, Is.EqualTo("Hello Denisse Fernandez"));
-//				Assert.AreEqual("Hello Denisse Fernandez", greet);
-//				Assert.That(customer.Greeting, Does.Contain("Hello"));
-//				Assert.That(greet, Does.Contain("hello").IgnoreCase);
-//				Assert.That(greet, Does.StartWith("Hello"));
-//				Assert.That(greet, Does.EndWith("Fernandez"));
-//				Assert.That(greet, Does.Match("Hello [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]"));
-//			});
+			//Assert
 			
-//		}
-
-//		//EXCEPTIONS
-//		[Test]
-//		public void GreetCustomer_InputNameIsNullOrEmpty_OutputsException()
-//		{
-//			//Arrange
-//			var excep = Assert.Throws<ArgumentException>(() => customer.GreetCustomer("", "Fernandez"));
-
-//			//Assert comparando mensaje de la excepcion
-//			Assert.AreEqual("Name is required!", excep.Message);
-//			Assert.That(excep.Message, Is.EqualTo("Name is required!"));
-
-//			Assert.That(() => customer.GreetCustomer("", "Fernandez"), 
-//				Throws.ArgumentException.With.Message.EqualTo("Name is required!"));
-
-//			//Assert sin comparacion de mensaje, solo checkeo el tipo d la exception
-//			Assert.Throws<ArgumentException>(()=>customer.GreetCustomer("", "Fernandez"));
-//			Assert.That(() => customer.GreetCustomer("", "Fernandez"), Throws.ArgumentException);
-			
-//		}
-
-//		//ASSERT TYPEOF OBJECT 
-//		[Test]
-//		public void GetTypeOfCustomer_InputLessThan100_OutputsBasicCustomerType()
-//		{
-//			//Arrange
-//			customer.OrderTotal = 99;
-//			//Act
-//			var result = customer.GetTypeOfCustomer();
-//			//Assert
-//			Assert.That(result, Is.TypeOf<BasicCustomer>());
-//		}
-
-//		[Test]
-//		public void GetTypeOfCustomer_InputMoreThan100_OutputsPlatinumCustomerType()
-//		{
-//			//Arrange
-//			customer.OrderTotal = 999;
-//			//Act
-//			var result = customer.GetTypeOfCustomer();
-//			//Assert
-//			Assert.That(result, Is.TypeOf<PlatinumCustomer>());
-//		}
+			Assert.Equal("Hello Denisse Fernandez", greet);
+			Assert.Contains("Hello", customer.Greeting);
+			Assert.StartsWith("Hello", greet);
+			Assert.EndsWith("Fernandez", greet);
+			Assert.Matches("Hello [A-Z]{1}[a-z]+ [A-Z]{1}[a-z]", greet);
 
 
-//	}
-//}
+		}
+
+		//EXCEPTIONS
+		[Fact]
+		public void GreetCustomer_InputNameIsNullOrEmpty_OutputsException()
+		{
+			//Arrange
+			var excep = Assert.Throws<ArgumentException>(() => customer.GreetCustomer("", "Fernandez"));
+
+			//Assert comparando mensaje de la excepcion
+			Assert.Equal("Name is required!", excep.Message);
+
+			//Assert sin comparacion de mensaje, solo checkeo el tipo d la exception
+			Assert.Throws<ArgumentException>(() => customer.GreetCustomer("", "Fernandez"));
+
+		}
+
+		//ASSERT TYPEOF OBJECT 
+		[Fact]
+		public void GetTypeOfCustomer_InputLessThan100_OutputsBasicCustomerType()
+		{
+			//Arrange
+			customer.OrderTotal = 99;
+			//Act
+			var result = customer.GetTypeOfCustomer();
+			//Assert
+			Assert.IsType<BasicCustomer>(result);
+		}
+
+		[Fact]
+		public void GetTypeOfCustomer_InputMoreThan100_OutputsPlatinumCustomerType()
+		{
+			//Arrange
+			customer.OrderTotal = 999;
+			//Act
+			var result = customer.GetTypeOfCustomer();
+			//Assert
+			Assert.IsType<PlatinumCustomer>(result);
+		}
+
+
+	}
+}
