@@ -42,9 +42,7 @@ namespace UnitTest101
 			//Assert
 
 			Assert.Contains(3,result);
-			//Assert.That(result.Count.Equals(6));
 			Assert.Equal(6, result.Count);
-			//Assert.That(result, Does.Not.Contains(4));
 			Assert.DoesNotContain(4, result);
 			Assert.True(result.SequenceEqual(expectedResults));
 		}
