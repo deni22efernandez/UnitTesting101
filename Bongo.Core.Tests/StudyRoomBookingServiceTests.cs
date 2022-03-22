@@ -77,5 +77,19 @@ namespace Bongo.Core.Tests
 			//Assert that the booked room Id was the only room I set on setup (id=7)
 			Assert.That(availableRoomsForTest.First().Id, Is.EqualTo(savedstudyRoomBooking.StudyRoomId));
 		}
+
+		[TestCase(false, ExpectedResult = StudyRoomBookingCode.NoRoomAvailable)]
+		[TestCase(true, ExpectedResult = StudyRoomBookingCode.Success)]
+		public StudyRoomBookingCode BookStudyRoom_InputRequest_ReturnsStudyRoomBookingCode(bool availability)
+		{
+			//Act
+			if (!availability)
+			{
+				availableRoomsForTest.Clear();
+			}		
+			
+			return studyRoomBookingService.BookStudyRoom(studyRoomBooking).Code;
+		}
+		
 	}
 }
