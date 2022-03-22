@@ -7,6 +7,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bongo.Core.Tests
 {
@@ -36,7 +37,7 @@ namespace Bongo.Core.Tests
 			{
 				new StudyRoom()
 				{
-					 Id=1,
+					 Id=7,
 					 RoomName="test",
 					 RoomNumber="2"
 				}
@@ -73,8 +74,8 @@ namespace Bongo.Core.Tests
 
 			//Act
 			studyRoomBookingService.BookStudyRoom(studyRoomBooking);
-			//Assert
-			Assert.That(savedstudyRoomBooking.BookingId, Is.EqualTo(studyRoomBooking.BookingId));
+			//Assert that the booked room Id was the only room I set on setup (id=7)
+			Assert.That(availableRoomsForTest.First().Id, Is.EqualTo(savedstudyRoomBooking.StudyRoomId));
 		}
 	}
 }
