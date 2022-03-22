@@ -30,7 +30,7 @@ namespace Bongo.Core.Services
                 throw new ArgumentNullException(nameof(request));
             }
 
-            StudyRoomBookingResult result = new() {
+            StudyRoomBookingResult result = new StudyRoomBookingResult() {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Email = request.Email,
@@ -41,7 +41,7 @@ namespace Bongo.Core.Services
             IEnumerable<StudyRoom> availableRooms = _studyRoomRepository.GetAll().Where(u => !bookedRooms.Contains(u.Id));
             if (availableRooms.Any())
             {
-                StudyRoomBooking studyRoomBooking = new()
+                StudyRoomBooking studyRoomBooking = new StudyRoomBooking()
                 {
                     FirstName = request.FirstName,
                     LastName = request.LastName,
